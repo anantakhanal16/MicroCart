@@ -4,6 +4,7 @@ networks:
   backend:
 
 services:
+  ### --- MS SQL for Customer ---
   customerdb:
     container_name: customerdb
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -13,7 +14,7 @@ services:
     networks:
       - backend
     ports:
-      - "1434:1433"       # Changed host port to 1434 to avoid conflict with local SQL Server
+      - "1434:1433"
 
   customerwebapi:
     container_name: customerwebapi
@@ -29,8 +30,9 @@ services:
       - backend
     ports:
       - "8080:8080"
-      - "8081:8081"
+      - "8081:8081"  # gRPC endpoint
 
+  ### --- MySQL for Product ---
   productdb:
     container_name: productdb
     image: mysql:8.0
@@ -40,7 +42,7 @@ services:
     networks:
       - backend
     ports:
-      - "3307:3306"       # MySQL container port 3306 mapped to host 3307
+      - "3307:3306"
 
   productapi:
     container_name: productapi
@@ -58,3 +60,34 @@ services:
       - backend
     ports:
       - "8082:8080"
+
+  ### --- MongoDB for Order ---
+  orderdb:
+    container_name: orderdb
+    image: mongo:7.0
+    ports:
+      - "27018:27017"
+    networks:
+      - backend
+    volumes:
+      - orderdata:/data/db
+
+  orderapi:
+    container_name: orderapi
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .  
+      dockerfile: OrderApi/Dockerfile
+    environment:
+      - MONGO_HOST=orderdb
+      - MONGO_PORT=27017
+      - MONGO_DATABASE=OrderDb
+      - CUSTOMER_GRPC_HOST=customerwebapi
+      - CUSTOMER_GRPC_PORT=8081
+    networks:
+      - backend
+    ports:
+      - "8083:8080"
+
+volumes:
+  orderdata:

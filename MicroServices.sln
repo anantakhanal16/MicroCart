@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductApi", "ProductApi\Pr
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi", "OrderApi\OrderApi.csproj", "{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,8 +57,23 @@ Global
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|x64.Build.0 = Release|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|x86.ActiveCfg = Release|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|x86.Build.0 = Release|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Debug|x64.Build.0 = Debug|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Debug|x86.Build.0 = Debug|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Release|x64.ActiveCfg = Release|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Release|x64.Build.0 = Release|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Release|x86.ActiveCfg = Release|Any CPU
+		{F2221C57-0D20-6E76-3BAE-B16C2830D6CB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FAEA9E9-3CBD-430A-96EC-A8AFFC87EE77}
 	EndGlobalSection
 EndGlobal
