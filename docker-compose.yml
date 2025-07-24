@@ -1,0 +1,60 @@
+version: '3.8'
+
+networks:
+  backend:
+
+services:
+  customerdb:
+    container_name: customerdb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=yourStrong(!)Password
+    networks:
+      - backend
+    ports:
+      - "1434:1433"       # Changed host port to 1434 to avoid conflict with local SQL Server
+
+  customerwebapi:
+    container_name: customerwebapi
+    image: ${DOCKER_REGISTRY-}customerwebapi
+    build:
+      context: .
+      dockerfile: CustomerWebApi/Dockerfile
+    environment:
+      - DB_HOST=customerdb
+      - DB_NAME=CustomerDb
+      - DB_SA_PASSWORD=yourStrong(!)Password
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+
+  productdb:
+    container_name: productdb
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=yourStrong(!)Password
+      - MYSQL_DATABASE=ProductDb
+    networks:
+      - backend
+    ports:
+      - "3307:3306"       # MySQL container port 3306 mapped to host 3307
+
+  productapi:
+    container_name: productapi
+    image: ${DOCKER_REGISTRY-}productapi
+    build:
+      context: .
+      dockerfile: ProductApi/Dockerfile
+    environment:
+      - DB_HOST=productdb
+      - DB_PORT=3306
+      - DB_NAME=ProductDb
+      - DB_USER=root
+      - DB_PASSWORD=yourStrong(!)Password
+    networks:
+      - backend
+    ports:
+      - "8082:8080"
