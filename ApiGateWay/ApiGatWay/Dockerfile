@@ -4,26 +4,26 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8080
 
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["OrderApi/OrderApi.csproj", "OrderApi/"]
-RUN dotnet restore "./OrderApi/OrderApi.csproj"
+COPY ["ApiGateWay/ApiGatWay/ApiGateWay.csproj", "ApiGateWay/ApiGatWay/"]
+RUN dotnet restore "./ApiGateWay/ApiGatWay/ApiGateWay.csproj"
 COPY . .
-WORKDIR "/src/OrderApi"
-RUN dotnet build "./OrderApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/ApiGateWay/ApiGatWay"
+RUN dotnet build "./ApiGateWay.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./OrderApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./ApiGateWay.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "OrderApi.dll"]
+ENTRYPOINT ["dotnet", "ApiGateWay.dll"]

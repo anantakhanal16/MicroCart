@@ -9,6 +9,10 @@ builder.Services.AddAppDbContext(builder.Configuration);
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80);
+});
 
 builder.Services.AddSwaggerDocs();
 var app = builder.Build();

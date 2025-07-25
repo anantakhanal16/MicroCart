@@ -8,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80); // ?? match docker expectations
+});
 builder.Services.AddMongoDb((builder.Configuration));
 
 builder.Services.AddSwaggerDocs();

@@ -28,9 +28,7 @@ services:
       - DB_SA_PASSWORD=yourStrong(!)Password
     networks:
       - backend
-    ports:
-      - "8080:8080"
-      - "8081:8081"  # gRPC endpoint
+    # ports removed, accessible only inside network
 
   ### --- MySQL for Product ---
   productdb:
@@ -58,25 +56,24 @@ services:
       - DB_PASSWORD=yourStrong(!)Password
     networks:
       - backend
-    ports:
-      - "8082:8080"
+    # ports removed
 
   ### --- MongoDB for Order ---
   orderdb:
     container_name: orderdb
     image: mongo:7.0
-    ports:
-      - "27018:27017"
-    networks:
-      - backend
     volumes:
       - orderdata:/data/db
+    networks:
+      - backend
+    ports:
+      - "27018:27017"
 
   orderapi:
     container_name: orderapi
     image: ${DOCKER_REGISTRY-}orderapi
     build:
-      context: .  
+      context: .
       dockerfile: OrderApi/Dockerfile
     environment:
       - MONGO_HOST=orderdb
@@ -86,8 +83,19 @@ services:
       - CUSTOMER_GRPC_PORT=8081
     networks:
       - backend
+    # ports removed
+
+  ### --- API Gateway ---
+  apigateway:
+    container_name: apigateway
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateWay/ApiGatWay/Dockerfile
+    networks:
+      - backend
     ports:
-      - "8083:8080"
+      - "8085:80"
 
 volumes:
   orderdata:

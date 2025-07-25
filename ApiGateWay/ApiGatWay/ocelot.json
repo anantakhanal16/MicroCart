@@ -1,0 +1,79 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/customer",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "customerwebapi",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/customer",
+            "UpstreamHttpMethod": [ "GET", "POST" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/customer/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "customerwebapi",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/customer/{id}",
+            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/products",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "productapi",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/products",
+            "UpstreamHttpMethod": [ "GET", "POST" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/products/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "productapi",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/products/{id}",
+            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/order",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "orderapi",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/order",
+            "UpstreamHttpMethod": [ "GET", "POST" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/order/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "orderapi",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/order/{id}",
+            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:8085"
+    }
+}

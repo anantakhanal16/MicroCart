@@ -8,8 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAppDbContext(builder.Configuration);
 
 builder.Services.AddControllers();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80); // ?? match docker expectations
+});
 builder.Services.AddOpenApi();
-
 builder.Services.AddSwaggerDocs();
 var app = builder.Build();
 
