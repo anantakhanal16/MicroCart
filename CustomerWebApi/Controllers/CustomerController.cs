@@ -1,7 +1,7 @@
 ﻿using CustomerWebApi.ApplicationDbContext;
 using CustomerWebApi.Dto;
 using CustomerWebApi.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +18,7 @@ namespace CustomerWebApi.Controllers
             _dbContext = dbContext;
         }
 
-        // GET: api/customer
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetCustomers(CancellationToken cancellationToken)
         {
@@ -33,7 +33,6 @@ namespace CustomerWebApi.Controllers
             }
         }
 
-        // GET: api/customer/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerById(int id, CancellationToken cancellationToken)
         {
@@ -53,7 +52,6 @@ namespace CustomerWebApi.Controllers
             }
         }
 
-        // POST: api/customer
         [HttpPost]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerDto customerDto, CancellationToken cancellationToken)
         {
@@ -80,7 +78,6 @@ namespace CustomerWebApi.Controllers
             }
         }
 
-        // PUT: api/customer/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerDto updatedCustomerDto, CancellationToken cancellationToken)
         {
@@ -106,7 +103,6 @@ namespace CustomerWebApi.Controllers
             }
         }
 
-        // DELETE: api/customer/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id, CancellationToken cancellationToken)
         {

@@ -1,13 +1,15 @@
 using CustomerWebApi.Extensions;
+using JwtAuthenticationManager.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddCustomJwtAuthExtension();
 builder.Services.AddAppDbContext(builder.Configuration);
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
 builder.WebHost.ConfigureKestrel(options =>
 {
@@ -25,7 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

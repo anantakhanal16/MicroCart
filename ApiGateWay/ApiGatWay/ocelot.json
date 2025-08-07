@@ -1,5 +1,57 @@
+// Ocelot API Gateway Configuration
+// --------------------------------
+// Used to route incoming API requests (from client/frontend) to internal microservices.
+
+// 🔑 Property Explanations:
+// -------------------------
+// - UpstreamPathTemplate: Path the client calls, e.g. "/api/customer".
+// - UpstreamHttpMethod: HTTP methods allowed on this route (e.g., GET, POST, PUT).
+// - DownstreamPathTemplate: Actual path in the internal microservice.
+// - DownstreamScheme: Protocol used for downstream call ("http" or "https").
+// - DownstreamHostAndPorts:
+//     • Host: Hostname or Docker container name of the target service.
+//     • Port: Port where the microservice is listening.
+
+// ✅ Full Example Walkthrough:
+// ----------------------------
+// Route Block:
+// {
+//     "DownstreamPathTemplate": "/api/customer",
+//     "DownstreamScheme": "http",
+//     "DownstreamHostAndPorts": [
+//         {
+//             "Host": "customerwebapi",
+//             "Port": 80
+//         }
+//     ],
+//     "UpstreamPathTemplate": "/api/customer",
+//     "UpstreamHttpMethod": [ "GET", "POST" ]
+// }
+//
+// 🔄 Client Request (Upstream):
+// Client (e.g., frontend or Postman) sends: 
+//   → GET http://localhost:8085/api/customer
+//
+// 🔽 Ocelot forwards request (Downstream):
+//   → GET http://customerwebapi:80/api/customer
+// Where:
+// - "localhost:8085" is the API Gateway (Ocelot)
+// - "customerwebapi:80" is the internal microservice
+
 {
     "Routes": [
+        {
+            "UpstreamPathTemplate": "/api/Account/{everything}",
+            "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "authapi",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Account/{everything}"
+        },
         {
             "DownstreamPathTemplate": "/api/customer",
             "DownstreamScheme": "http",

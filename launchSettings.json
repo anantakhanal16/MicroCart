@@ -8,6 +8,7 @@
         "productapi": "StartDebugging",
         "orderapi": "StartDebugging",
         "apigateway": "StartDebugging"
+  
       }
     }
   }

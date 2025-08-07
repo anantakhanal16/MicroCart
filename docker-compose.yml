@@ -96,6 +96,16 @@ services:
       - backend
     ports:
       - "8085:80"
+  authapi:
+    container_name: authapi
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: AuthApi/Dockerfile
+    networks:
+      - backend
 
 volumes:
   orderdata:
+
+
