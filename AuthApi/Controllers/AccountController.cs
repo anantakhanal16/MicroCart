@@ -1,4 +1,5 @@
-﻿using JwtAuthenticationManager;
+﻿using AuthApi.Interface;
+using AuthApi.Services;
 using JwtAuthenticationManager.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,19 +9,20 @@ namespace AuthApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IJwtTokenHandler _tokenService;
-        public AccountController(IJwtTokenHandler tokenService)
+        private readonly IAccountService _authService;
+
+        public AccountController(IAccountService authService)
         {
-            _tokenService = tokenService;
+            _authService = authService;
         }
+
         [HttpPost("login")]
-        public  ActionResult<AuthenticationResponse> Login([FromBody] AuthenticationRequest request)
+        public ActionResult<AuthenticationResponse> Login([FromBody] AuthenticationRequest request)
         {
-            var authenticationResponse =  _tokenService.GenerateJwtToken(request);
+            var authenticationResponse = _authService.Login(request);
             if (authenticationResponse == null)
-            {
-                return  Unauthorized();
-            }
+                return Unauthorized();
+
             return Ok(authenticationResponse);
         }
     }

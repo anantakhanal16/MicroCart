@@ -1,4 +1,6 @@
 using OrderApi.Extensions;
+using OrderApi.Interface;
+using OrderApi.Services;
 using ProductApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenAnyIP(80); // ?? match docker expectations
 });
 builder.Services.AddMongoDb((builder.Configuration));
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 
 builder.Services.AddSwaggerDocs();
 
