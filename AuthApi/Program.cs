@@ -1,3 +1,5 @@
+using AuthApi.Extensions;
+using AuthApi.Interface;
 using JwtAuthenticationManager;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +11,7 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
-
+builder.Services.AddApplicationServices();
 var app = builder.Build();
 
 app.UseAuthorization();
