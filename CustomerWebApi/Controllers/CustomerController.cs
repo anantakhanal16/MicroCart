@@ -72,9 +72,7 @@ namespace CustomerWebApi.Controllers
         [HttpPost("create-order")]
         public async Task<IActionResult>  CreateOrder([FromBody] OrderCreatedEvent order,CancellationToken cancellationToken)
         {
-          
             var publishedOrder = await _customerService.PublishOrderCreatedAsync(order, cancellationToken);
-        
             return Ok(publishedOrder);
         }
     }

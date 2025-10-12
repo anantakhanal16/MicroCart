@@ -16,7 +16,7 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 builder.Services.AddMongoDb((builder.Configuration));
 builder.Services.AddScoped<IOrderService, OrderService>();
-
+builder.Services.AddHostedService<RabbitMqConsumerService>();
 
 builder.Services.AddSwaggerDocs();
 
