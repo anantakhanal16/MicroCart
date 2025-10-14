@@ -75,7 +75,7 @@ namespace CustomerWebApi.Services
             return true;
         }
 
-        public async  Task<bool> PublishOrderCreatedAsync(OrderCreatedEvent orderCreatedEvent, CancellationToken cancellationToken)
+        public async Task<bool> PublishOrderCreatedAsync(OrderCreatedEvent orderCreatedEvent, CancellationToken cancellationToken)
         {
             var orderCreated = new OrderCreatedEvent
             {

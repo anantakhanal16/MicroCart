@@ -1,5 +1,9 @@
 using CustomerWebApi.Extensions;
+using CustomerWebApi.Interface;
+using CustomerWebApi.Services;
 using JwtAuthenticationManager.ServiceExtensions;
+using Messaging.Interfaces;
+using Messaging.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddCustomJwtAuthExtension();
 builder.Services.AddAppDbContext(builder.Configuration);
+builder.Services.AddRabbitMq();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
 
 
 builder.Services.AddOpenApi();

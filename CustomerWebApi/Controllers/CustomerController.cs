@@ -13,12 +13,12 @@ namespace CustomerWebApi.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
-        private readonly IRabbitMqService _rabbitMqService;
+       
 
-        public CustomerController(ICustomerService customerService, IRabbitMqService rabbitMqService)
+        public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
-            _rabbitMqService = rabbitMqService;
+          
         }
 
         [Authorize]
@@ -72,9 +72,7 @@ namespace CustomerWebApi.Controllers
         [HttpPost("create-order")]
         public async Task<IActionResult>  CreateOrder([FromBody] OrderCreatedEvent order,CancellationToken cancellationToken)
         {
-          
             var publishedOrder = await _customerService.PublishOrderCreatedAsync(order, cancellationToken);
-        
             return Ok(publishedOrder);
         }
     }

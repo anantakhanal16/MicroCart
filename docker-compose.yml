@@ -101,6 +101,7 @@ services:
     container_name: rabbitmq
     image: rabbitmq:3-management
     environment:
+      - RabbitMQ__HostName=rabbitmq
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
       - RABBITMQ_EXCHANGE=order.exchange

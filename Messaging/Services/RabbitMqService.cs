@@ -17,9 +17,9 @@ namespace Messaging.Services
         {
             _factory = new ConnectionFactory()
             {
-                HostName = settings.HostName,
-                UserName = settings.UserName,
-                Password = settings.Password
+                HostName = "rabbitmq",
+                UserName =  "guest",
+                Password = "guest"
             };
         }
 
@@ -35,8 +35,15 @@ namespace Messaging.Services
             // Declare exchange (topic type is common for microservices)
             await channel.ExchangeDeclareAsync(message.Exchange, ExchangeType.Topic, durable: true);
 
+            var json = JsonSerializer.Serialize(message.Message, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            var bodyBytes = Encoding.UTF8.GetBytes(json);
+
             // Serialize message to JSON
-            var bodyBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
+            //var bodyBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
             var body = new ReadOnlyMemory<byte>(bodyBytes);
 
             // Publish message
@@ -46,7 +53,7 @@ namespace Messaging.Services
                 routingKey: message.RoutingKey,
                 mandatory: false,
                 basicProperties: properties,
-                body: body);
+                body: bodyBytes);
 
             Console.WriteLine($"Message published to exchange '{message.Exchange}' with routing key '{message.RoutingKey}'.");
         }

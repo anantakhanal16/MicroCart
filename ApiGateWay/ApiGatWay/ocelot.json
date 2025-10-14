@@ -77,6 +77,18 @@
             "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
         },
         {
+            "DownstreamPathTemplate": "/api/customer/create-order",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "customerwebapi",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/customer/create-order",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
+        {
             "DownstreamPathTemplate": "/api/products",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
