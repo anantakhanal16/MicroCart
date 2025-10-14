@@ -13,12 +13,12 @@ namespace CustomerWebApi.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
-        private readonly IRabbitMqService _rabbitMqService;
+       
 
-        public CustomerController(ICustomerService customerService, IRabbitMqService rabbitMqService)
+        public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
-            _rabbitMqService = rabbitMqService;
+          
         }
 
         [Authorize]

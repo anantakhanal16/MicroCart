@@ -17,15 +17,15 @@ public class RabbitMqConsumerService : BackgroundService
     {
         _logger = logger;
 
-        _exchangeName = configuration["RabbitMQ:ExchangeName"] ?? "default.exchange";
-        _queueName = configuration["RabbitMQ:QueueName"] ?? "default.queue";
-        _routingKey = configuration["RabbitMQ:RoutingKey"] ?? "default.routingKey";
+        _exchangeName = "order.exchange";
+        _queueName = "order.created.queue";
+        _routingKey = "order.created";
 
         _factory = new ConnectionFactory
         {
-            HostName = configuration["RabbitMQ:HostName"] ?? "rabbitmq",
-            UserName = configuration["RabbitMQ:UserName"] ?? "guest",
-            Password = configuration["RabbitMQ:Password"] ?? "guest",
+            HostName =  "rabbitmq",
+            UserName =  "guest",
+            Password =  "guest",
             AutomaticRecoveryEnabled = true
         };
     }
@@ -40,6 +40,11 @@ public class RabbitMqConsumerService : BackgroundService
             durable: true,
             exclusive: false,
             autoDelete: false);
+        await channel.QueueBindAsync(
+    queue: _queueName,
+    exchange: _exchangeName,
+    routingKey: _routingKey
+);
 
         var consumer = new AsyncEventingBasicConsumer(channel);
         _logger.LogInformation("RabbitMQ consumer started. Waiting for messages...");
