@@ -34,7 +34,7 @@ MicroCart demonstrates modern microservices architecture with .NET Core. It feat
 
 ### Prerequisites
 - Docker Desktop ([Download](https://www.docker.com/products/docker-desktop))
-- 4GB RAM available
+- 8GB RAM available
 - Git
 
 ### Setup (3 Steps)
@@ -44,6 +44,7 @@ MicroCart demonstrates modern microservices architecture with .NET Core. It feat
 git clone https://github.com/your-username/microcart.git
 cd microcart
 ```
+here run this <img width="1762" height="135" alt="image" src="https://github.com/user-attachments/assets/9f6cb13d-9a89-4bbb-928d-91e44e31341e" />
 
 **2. Start All Services**
 ```bash
