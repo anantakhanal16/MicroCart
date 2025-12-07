@@ -44,7 +44,6 @@ MicroCart demonstrates modern microservices architecture with .NET Core. It feat
 git clone https://github.com/your-username/microcart.git
 cd microcart
 ```
-here see this click and run docker compose in visual studio <img width="1762" height="185" alt="image" src="https://github.com/user-attachments/assets/ccfeb6ce-5d60-49d4-8a45-3b075cdb82c2" />
 
 
 **2. Start All Services**
@@ -56,6 +55,10 @@ docker-compose up -d
 ```bash
 docker-compose ps
 ```
+
+you can also run docker compose from visual studio i have attached image for reference 
+here see this click and run docker compose in visual studio <img width="1762" height="185" alt="image" src="https://github.com/user-attachments/assets/ccfeb6ce-5d60-49d4-8a45-3b075cdb82c2" />
+
 
 All services should show "Up" status. Wait 30 seconds for databases to initialize.
 
