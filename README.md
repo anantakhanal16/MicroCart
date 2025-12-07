@@ -44,7 +44,8 @@ MicroCart demonstrates modern microservices architecture with .NET Core. It feat
 git clone https://github.com/your-username/microcart.git
 cd microcart
 ```
-here run this <img width="1762" height="135" alt="image" src="https://github.com/user-attachments/assets/9f6cb13d-9a89-4bbb-928d-91e44e31341e" />
+here see this click and run docker compose in visual studio <img width="1762" height="185" alt="image" src="https://github.com/user-attachments/assets/ccfeb6ce-5d60-49d4-8a45-3b075cdb82c2" />
+
 
 **2. Start All Services**
 ```bash
