@@ -1,65 +1,76 @@
 ﻿using System.Text;
-
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 public class RabbitMqConsumerService : BackgroundService
 {
-    private readonly ILogger<RabbitMqConsumerService> _logger;
-    private readonly ConnectionFactory _factory;
-    private readonly string _exchangeName;
-    private readonly string _queueName;
-    private readonly string _routingKey;
+    private readonly ILogger<RabbitMqConsumerService> logger;
+    private readonly ConnectionFactory factory;
+    private readonly string exchangeName;
+    private readonly string queueName;
+    private readonly string routingKey;
 
     public RabbitMqConsumerService(
         ILogger<RabbitMqConsumerService> logger,
         IConfiguration configuration)
     {
-        _logger = logger;
+        this.logger = logger;
 
-        _exchangeName = "order.exchange";
-        _queueName = "order.created.queue";
-        _routingKey = "order.created";
+        exchangeName = "order.exchange";
+        queueName = "order.created.queue";
+        routingKey = "order.created";
 
-        _factory = new ConnectionFactory
+        factory = new ConnectionFactory
         {
-            HostName =  "rabbitmq",
-            UserName =  "guest",
-            Password =  "guest",
+            HostName = "rabbitmq",
+            UserName = "guest",
+            Password = "guest",
             AutomaticRecoveryEnabled = true
         };
     }
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        await using var connection = await _factory.CreateConnectionAsync(cancellationToken);
+        await using var connection = await factory.CreateConnectionAsync(cancellationToken);
         await using var channel = await connection.CreateChannelAsync();
 
+        // 1️⃣ Declare Exchange (You were missing this)
+        await channel.ExchangeDeclareAsync(
+            exchange: exchangeName,
+            type: ExchangeType.Topic,
+            durable: true,
+            autoDelete: false
+        );
+
+        // 2️⃣ Declare Queue
         await channel.QueueDeclareAsync(
-            queue: _queueName,
+            queue: queueName,
             durable: true,
             exclusive: false,
-            autoDelete: false);
+            autoDelete: false
+        );
+
+        // 3️⃣ Bind Queue to Exchange
         await channel.QueueBindAsync(
-    queue: _queueName,
-    exchange: _exchangeName,
-    routingKey: _routingKey
-);
+            queue: queueName,
+            exchange: exchangeName,
+            routingKey: routingKey
+        );
 
         var consumer = new AsyncEventingBasicConsumer(channel);
-        _logger.LogInformation("RabbitMQ consumer started. Waiting for messages...");
+        logger.LogInformation("RabbitMQ consumer started. Waiting for messages...");
 
         consumer.ReceivedAsync += async (_, eventArgs) =>
         {
             var body = eventArgs.Body.ToArray();
             var messageJson = Encoding.UTF8.GetString(body);
 
-            _logger.LogInformation("Received message: {Message}", messageJson);
+            logger.LogInformation("Received message: {Message}", messageJson);
 
             await channel.BasicAckAsync(eventArgs.DeliveryTag, multiple: false);
         };
 
-        await channel.BasicConsumeAsync(_queueName, autoAck: false, consumer);
+        await channel.BasicConsumeAsync(queueName, autoAck: false, consumer);
         await Task.Delay(Timeout.Infinite, cancellationToken);
     }
 }
