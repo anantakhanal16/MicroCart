@@ -33,6 +33,8 @@ services:
       - RABBITMQ_ROUTINGKEY=order.created 
     networks:
       - backend
+    ports:
+      - "3308:80"
 
   ### --- MySQL for Product ---
   productdb:
@@ -95,6 +97,8 @@ services:
       - RABBITMQ_ROUTINGKEY=order.created
     networks:
       - backend
+    ports:
+     - "27123:82"
 
   ### --- RabbitMQ ---
   rabbitmq:

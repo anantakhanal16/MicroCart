@@ -135,6 +135,19 @@
             ],
             "UpstreamPathTemplate": "/api/order/{id}",
             "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+        },
+        {
+            "DownstreamPathTemplate": "/PaymentGrpc/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "paymentgrpcapi",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/api/paymentgrpc/{everything}",
+            "UpstreamHttpMethod": [ "POST" ],
+            "Grpc": true
         }
     ],
     "GlobalConfiguration": {

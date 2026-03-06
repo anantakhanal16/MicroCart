@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "CustomerWebApi.Grpc";
+
+package payment;
+
+service PaymentGrpc {
+  rpc ProcessPayment (PaymentRequest) returns (PaymentReply);
+}
+
+message PaymentRequest {
+  string orderId = 1;
+  double amount = 2;
+}
+
+message PaymentReply {
+  string status = 1;
+}

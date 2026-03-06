@@ -1,5 +1,6 @@
 ﻿using CustomerWebApi.ApplicationDbContext;
 using CustomerWebApi.Dto;
+using CustomerWebApi.GrpcClient;
 using CustomerWebApi.Interface;
 using CustomerWebApi.Models;
 using Messaging.Interfaces;
@@ -12,12 +13,14 @@ namespace CustomerWebApi.Services
     public class CustomerService : ICustomerService
     {
         private readonly AppDbContext _dbContext;
+        private readonly PaymentService _grpcClient;
         private readonly IRabbitMqService _rabbitMqService;
 
-        public CustomerService(AppDbContext dbContext,IRabbitMqService rabbitMqService)
+        public CustomerService(AppDbContext dbContext,IRabbitMqService rabbitMqService, PaymentService grpcClient)
         {
             _dbContext = dbContext;
             _rabbitMqService = rabbitMqService;
+            _grpcClient = grpcClient;
         }
 
         public async Task<List<Customer>> GetCustomersAsync(CancellationToken cancellationToken)
@@ -85,6 +88,7 @@ namespace CustomerWebApi.Services
                 Quantity = orderCreatedEvent.Quantity,
                 Price = orderCreatedEvent.UnitPrice
             };
+            var callGrpcClient = await _grpcClient.ProcessPaymentAsync(orderCreatedEvent.Id, (double)orderCreatedEvent.Price);
 
             var orderMessage = new RabbitMqMessage<OrderCreatedEvent>(
                 message: orderCreated,
