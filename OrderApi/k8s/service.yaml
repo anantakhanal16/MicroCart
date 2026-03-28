@@ -1,11 +1,22 @@
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: api-gateway
+  name: order-api
 spec:
-  type: LoadBalancer
+  replicas: 2
   selector:
-    app: api-gateway
-  ports:
-    - port: 80
-      targetPort: 5000
+    matchLabels:
+      app: order-api
+  template:
+    metadata:
+      labels:
+        app: order-api
+    spec:
+      containers:
+      - name: order-api
+        image: ark160/order-api:v1
+        ports:
+        - containerPort: 5000
+        env:
+        - name: RABBITMQ_HOST
+          value: "rabbitmq"
