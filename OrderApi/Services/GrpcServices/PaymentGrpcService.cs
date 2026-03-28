@@ -14,9 +14,10 @@ namespace OrderApi.Services.GrpcServices
 
         public override Task<PaymentReply> ProcessPayment(PaymentRequest request, ServerCallContext context)
         {
+
             _logger.LogInformation("Processing payment for OrderId: {OrderId}, Amount: {Amount}", request.OrderId, request.Amount);
 
-            var paymentSuccessful = true; 
+            var paymentSuccessful = true;
 
             var status = paymentSuccessful ? "Success" : "Failed";
 

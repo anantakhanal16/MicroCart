@@ -34,7 +34,7 @@ namespace Messaging.Services
 
             // Declare exchange (topic type is common for microservices)
             await channel.ExchangeDeclareAsync(message.Exchange, ExchangeType.Topic, durable: true);
-
+            
             var json = JsonSerializer.Serialize(message.Message, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -42,8 +42,6 @@ namespace Messaging.Services
 
             var bodyBytes = Encoding.UTF8.GetBytes(json);
 
-            // Serialize message to JSON
-            //var bodyBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
             var body = new ReadOnlyMemory<byte>(bodyBytes);
 
             // Publish message

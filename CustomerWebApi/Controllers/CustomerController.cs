@@ -75,5 +75,11 @@ namespace CustomerWebApi.Controllers
             var publishedOrder = await _customerService.PublishOrderCreatedAsync(order, cancellationToken);
             return Ok(publishedOrder);
         }
+        [HttpPost("stremGrpcData")]
+        public async Task<IActionResult> StreamGrpcData([FromBody] OrderCreatedEvent order, CancellationToken cancellationToken)
+        {
+            var publishedOrder = await _customerService.StreamGrpcData(order, cancellationToken);
+            return Ok();
+        }   
     }
 }

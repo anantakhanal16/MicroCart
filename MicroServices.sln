@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11605.240
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerWebApi", "CustomerWebApi\CustomerWebApi.csproj", "{4279DC7E-7A0D-4C67-95F1-052D169E83F4}"
 EndProject
@@ -22,6 +22,40 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{2FECF11C-180C-47D2-85CD-D11E0630D67C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedContracts", "SharedContracts\SharedContracts.csproj", "{9B80F173-62FF-4509-937C-B050D684F556}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{A4D33035-2939-4209-877A-9B53410DACB4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api-gateway", "api-gateway", "{FCCEFE9B-B352-4729-A3C5-4246D2D3171F}"
+	ProjectSection(SolutionItems) = preProject
+		deployment.yaml = deployment.yaml
+		service.yaml = service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "auth-api", "auth-api", "{ED1C74C3-BB9D-4DF6-871D-76B708F04808}"
+	ProjectSection(SolutionItems) = preProject
+		deployment.yaml = deployment.yaml
+		service.yaml = service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "customer-api", "customer-api", "{0443A7F9-CA41-4CCE-B307-2C93D931DEB7}"
+	ProjectSection(SolutionItems) = preProject
+		deployment.yaml = deployment.yaml
+		service.yaml = service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "order-api", "order-api", "{60F3F4F0-B476-4E69-B113-05F4DB0B99B4}"
+	ProjectSection(SolutionItems) = preProject
+		deployment.yaml = deployment.yaml
+		service.yaml = service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "product-api", "product-api", "{05A582ED-1C1F-4FF0-B8BF-4414A3084414}"
+	ProjectSection(SolutionItems) = preProject
+		deployment.yaml = deployment.yaml
+		service.yaml = service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{B5FFBE02-6FCA-4B6F-A4ED-C1F84AFEFD84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -156,6 +190,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCCEFE9B-B352-4729-A3C5-4246D2D3171F} = {A4D33035-2939-4209-877A-9B53410DACB4}
+		{ED1C74C3-BB9D-4DF6-871D-76B708F04808} = {A4D33035-2939-4209-877A-9B53410DACB4}
+		{0443A7F9-CA41-4CCE-B307-2C93D931DEB7} = {A4D33035-2939-4209-877A-9B53410DACB4}
+		{60F3F4F0-B476-4E69-B113-05F4DB0B99B4} = {A4D33035-2939-4209-877A-9B53410DACB4}
+		{05A582ED-1C1F-4FF0-B8BF-4414A3084414} = {A4D33035-2939-4209-877A-9B53410DACB4}
+		{B5FFBE02-6FCA-4B6F-A4ED-C1F84AFEFD84} = {A4D33035-2939-4209-877A-9B53410DACB4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9FAEA9E9-3CBD-430A-96EC-A8AFFC87EE77}
