@@ -12,5 +12,7 @@ namespace CustomerWebApi.Interface
         Task<Customer?> UpdateCustomerAsync(int id, CustomerDto customerDto, CancellationToken cancellationToken);
         Task<bool> DeleteCustomerAsync(int id, CancellationToken cancellationToken);
         Task<bool> PublishOrderCreatedAsync(OrderCreatedEvent orderCreatedEvent, CancellationToken cancellationToken);
+
+        Task<bool> StreamGrpcData(OrderCreatedEvent order,CancellationToken cancellationToken);
     }
 }

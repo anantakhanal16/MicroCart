@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-api
+  template:
+    metadata:
+      labels:
+        app: order-api
+    spec:
+      containers:
+      - name: order-api
+        image: ark160/order-api:v1
+        ports:
+        - containerPort: 5000
+        env:
+        - name: RABBITMQ_HOST
+          value: "rabbitmq"

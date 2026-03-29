@@ -3,6 +3,7 @@ using CustomerWebApi.Dto;
 using CustomerWebApi.GrpcClient;
 using CustomerWebApi.Interface;
 using CustomerWebApi.Models;
+using Google.Protobuf;
 using Messaging.Interfaces;
 using Messaging.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +16,14 @@ namespace CustomerWebApi.Services
         private readonly AppDbContext _dbContext;
         private readonly PaymentService _grpcClient;
         private readonly IRabbitMqService _rabbitMqService;
-
-        public CustomerService(AppDbContext dbContext,IRabbitMqService rabbitMqService, PaymentService grpcClient)
+        private readonly IGrpcStremClient _grpcStreamClient;
+        
+        public CustomerService(AppDbContext dbContext,IRabbitMqService rabbitMqService, PaymentService grpcClient, IGrpcStremClient grpcStreamClient)
         {
             _dbContext = dbContext;
             _rabbitMqService = rabbitMqService;
             _grpcClient = grpcClient;
+            _grpcStreamClient = grpcStreamClient;
         }
 
         public async Task<List<Customer>> GetCustomersAsync(CancellationToken cancellationToken)
@@ -98,6 +101,16 @@ namespace CustomerWebApi.Services
             );
 
             await _rabbitMqService.Publish(orderMessage,cancellationToken);
+            return true;
+        }
+
+        public async Task<bool> StreamGrpcData(OrderCreatedEvent order, CancellationToken cancellationToken)
+        {
+            var responseStream =await _grpcStreamClient.SendStreamAsync(order.Quantity);
+            foreach (var msg in responseStream)
+            {
+                Console.WriteLine($"Server streamed: {msg}");
+            }
             return true;
         }
     }

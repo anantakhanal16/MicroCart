@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "StreamDemo.Grpc";
+package streamdemo;
+
+service StreamDemoGrpc
+{
+  rpc StreamData (StreamDataRequest) returns (stream StreamDataReply);
+}
+
+message StreamDataRequest {
+  int32 count = 1;
+}
+
+message StreamDataReply
+{
+  int32 number = 1;       
+  string message = 2; 
+}

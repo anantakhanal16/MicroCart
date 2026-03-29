@@ -4,7 +4,8 @@ option csharp_namespace = "CustomerWebApi.Grpc";
 
 package payment;
 
-service PaymentGrpc {
+service PaymentGrpc
+{
   rpc ProcessPayment (PaymentRequest) returns (PaymentReply);
 }
 
