@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: ark160/api-gateway:v1
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+
+            # RabbitMQ (matches your docker-compose)
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+
+            - name: RABBITMQ_USER
+              value: "guest"
+
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
+
+            - name: RABBITMQ_EXCHANGE
+              value: "order.exchange"
+
+            - name: RABBITMQ_ROUTINGKEY
+              value: "order.created"

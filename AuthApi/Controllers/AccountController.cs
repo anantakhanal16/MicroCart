@@ -19,7 +19,9 @@ namespace AuthApi.Controllers
         [HttpPost("login")]
         public ActionResult<AuthenticationResponse> Login([FromBody] AuthenticationRequest request)
         {
+            Console.WriteLine("Login Api Called ");
             var authenticationResponse = _authService.Login(request);
+            Console.WriteLine("Login user Detail");
             if (authenticationResponse == null)
                 return Unauthorized();
 
