@@ -13,10 +13,6 @@ public static class KestrelExtensions
         {
             options.ListenAnyIP(80);
 
-            options.ListenAnyIP(5005, listenOptions =>
-            {
-                listenOptions.UseHttps();
-            });
         });
     }
 }

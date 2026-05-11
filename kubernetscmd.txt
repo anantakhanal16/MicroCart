@@ -1,0 +1,1 @@
+kubectl scale deployment --all --replicas=0

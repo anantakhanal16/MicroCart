@@ -18,7 +18,6 @@ namespace CustomerWebApi.Controllers
         public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
-          
         }
 
         [Authorize]

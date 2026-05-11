@@ -83,6 +83,7 @@ namespace CustomerWebApi.Services
 
         public async Task<bool> PublishOrderCreatedAsync(OrderCreatedEvent orderCreatedEvent, CancellationToken cancellationToken)
         {
+            Console.WriteLine($"Received OrderCreatedEvent: {orderCreatedEvent.Id}, {orderCreatedEvent.CustomerName}, {orderCreatedEvent.ProductName}, {orderCreatedEvent.Quantity}, {orderCreatedEvent.Price}");
             var orderCreated = new OrderCreatedEvent
             {
                 Id = orderCreatedEvent.Id,

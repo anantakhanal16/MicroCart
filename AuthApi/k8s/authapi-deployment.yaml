@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
         - name: authapi
-          image: ark160/authapi:v2
+          image: ark160/authapi:v6
           ports:
             - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
+            - name: ASPNETCORE_URLS
+              value: "http://+:80"
           imagePullPolicy: Always
