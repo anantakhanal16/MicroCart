@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices(builder.Configuration);
 
-//builder.WebHost.ConfigureCustomKestrel();
+builder.WebHost.ConfigureCustomKestrel();
 
 var app = builder.Build();
 
