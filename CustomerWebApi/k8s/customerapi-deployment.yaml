@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: customerwebapi
-          image: ark160/customerwebapi:v3
+          image: ark160/customerapi:v6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
