@@ -1,5 +1,4 @@
-using AuthApi.Extensions;
-using AuthApi.Interface;
+using AuthApi.Infrastructure.Extensions;
 using JwtAuthenticationManager;
 
 var builder = WebApplication.CreateBuilder(args);

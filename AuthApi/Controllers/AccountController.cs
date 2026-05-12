@@ -1,5 +1,4 @@
-﻿using AuthApi.Interface;
-using AuthApi.Services;
+﻿using AuthApi.Application.Interface;
 using JwtAuthenticationManager.Models;
 using Microsoft.AspNetCore.Mvc;
 

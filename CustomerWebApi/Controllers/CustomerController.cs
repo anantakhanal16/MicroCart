@@ -1,6 +1,6 @@
 ﻿using System.Threading;
-using CustomerWebApi.Dto;
-using CustomerWebApi.Interface;
+using CustomerWebApi.Application.Dto;
+using CustomerWebApi.Application.Interface;
 using Messaging.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

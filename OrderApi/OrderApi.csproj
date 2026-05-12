@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\GrpcServices\Clients\" />
+    <Folder Include="Infrastructure\Services\GrpcServices\Clients\" />
   </ItemGroup>
 
 </Project>

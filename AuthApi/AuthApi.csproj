@@ -17,5 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Entities\" />
+  </ItemGroup>
 
 </Project>
