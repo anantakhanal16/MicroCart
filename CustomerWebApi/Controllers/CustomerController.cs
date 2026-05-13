@@ -31,6 +31,7 @@ namespace CustomerWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerById(int id, CancellationToken cancellationToken)
         {
+            Console.WriteLine("Customer Api called getting customer by id ");
             var customer = await _customerService.GetCustomerByIdAsync(id, cancellationToken);
             if (customer == null)
                 return NotFound(new { message = $"Customer with ID '{id}' not found." });
@@ -74,11 +75,12 @@ namespace CustomerWebApi.Controllers
             var publishedOrder = await _customerService.PublishOrderCreatedAsync(order, cancellationToken);
             return Ok(publishedOrder);
         }
-        [HttpPost("stremGrpcData")]
-        public async Task<IActionResult> StreamGrpcData([FromBody] OrderCreatedEvent order, CancellationToken cancellationToken)
-        {
-            var publishedOrder = await _customerService.StreamGrpcData(order, cancellationToken);
-            return Ok();
-        }   
+        //[HttpPost("stremGrpcData")]
+        //public async Task<IActionResult> StreamGrpcData([FromBody] OrderCreatedEvent order, CancellationToken cancellationToken)
+        //{
+        //    var publishedOrder = await _customerService.StreamGrpcData(order, cancellationToken);
+        //    return Ok();
+        //}  
+        
     }
 }

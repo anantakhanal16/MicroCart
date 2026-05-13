@@ -14,16 +14,16 @@ namespace CustomerWebApi.Infrastructure.Services
     public class CustomerService : ICustomerService
     {
         private readonly AppDbContext _dbContext;
-        private readonly PaymentService _grpcClient;
+     //   private readonly PaymentService _grpcClient;
         private readonly IRabbitMqService _rabbitMqService;
-        private readonly IGrpcStremClient _grpcStreamClient;
+       // private readonly IGrpcStremClient _grpcStreamClient;
         
-        public CustomerService(AppDbContext dbContext,IRabbitMqService rabbitMqService, PaymentService grpcClient, IGrpcStremClient grpcStreamClient)
+        public CustomerService(AppDbContext dbContext,IRabbitMqService rabbitMqService)
         {
             _dbContext = dbContext;
             _rabbitMqService = rabbitMqService;
-            _grpcClient = grpcClient;
-            _grpcStreamClient = grpcStreamClient;
+            //_grpcClient = grpcClient;
+            //_grpcStreamClient = grpcStreamClient;
         }
 
         public async Task<List<Customer>> GetCustomersAsync(CancellationToken cancellationToken)
@@ -92,7 +92,7 @@ namespace CustomerWebApi.Infrastructure.Services
                 Quantity = orderCreatedEvent.Quantity,
                 Price = orderCreatedEvent.UnitPrice
             };
-            var callGrpcClient = await _grpcClient.ProcessPaymentAsync(orderCreatedEvent.Id, (double)orderCreatedEvent.Price);
+           // var callGrpcClient = await _grpcClient.ProcessPaymentAsync(orderCreatedEvent.Id, (double)orderCreatedEvent.Price);
 
             var orderMessage = new RabbitMqMessage<OrderCreatedEvent>(
                 message: orderCreated,
@@ -105,14 +105,14 @@ namespace CustomerWebApi.Infrastructure.Services
             return true;
         }
 
-        public async Task<bool> StreamGrpcData(OrderCreatedEvent order, CancellationToken cancellationToken)
-        {
-            var responseStream =await _grpcStreamClient.SendStreamAsync(order.Quantity);
-            foreach (var msg in responseStream)
-            {
-                Console.WriteLine($"Server streamed: {msg}");
-            }
-            return true;
-        }
+        //public async Task<bool> StreamGrpcData(OrderCreatedEvent order, CancellationToken cancellationToken)
+        //{
+        //    var responseStream =await _grpcStreamClient.SendStreamAsync(order.Quantity);
+        //    foreach (var msg in responseStream)
+        //    {
+        //        Console.WriteLine($"Server streamed: {msg}");
+        //    }
+        //    return true;
+        //}
     }
 }

@@ -13,6 +13,6 @@ namespace CustomerWebApi.Application.Interface
         Task<bool> DeleteCustomerAsync(int id, CancellationToken cancellationToken);
         Task<bool> PublishOrderCreatedAsync(OrderCreatedEvent orderCreatedEvent, CancellationToken cancellationToken);
 
-        Task<bool> StreamGrpcData(OrderCreatedEvent order,CancellationToken cancellationToken);
+        //Task<bool> StreamGrpcData(OrderCreatedEvent order,CancellationToken cancellationToken);
     }
 }

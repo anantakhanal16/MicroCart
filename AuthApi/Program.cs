@@ -1,18 +1,19 @@
 using AuthApi.Infrastructure.Extensions;
-using JwtAuthenticationManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(80);
 });
 
 builder.Services.AddControllers();
-builder.Services.AddApplicationServices();
+
+builder.Services.AddApplicationServices(builder.Configuration);
+
 var app = builder.Build();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
