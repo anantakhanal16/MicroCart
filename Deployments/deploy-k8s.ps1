@@ -1,4 +1,4 @@
-$basePath = "C:\Users\User\OneDrive\Desktop\microcart\MicroCart"
+$basePath = Split-Path -Parent $PSScriptRoot
 
 Write-Host "===============================" -ForegroundColor Cyan
 Write-Host "STARTING K8s DEPLOYMENT" -ForegroundColor Cyan

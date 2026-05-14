@@ -1,10 +1,13 @@
+# ===== BASE PATH (solution root) =====
+$basePath = Split-Path -Parent $PSScriptRoot
+
 # ===== CONFIG =====
 $version = "v6"
 
 $services = @(
-    @{ Name = "customerapi"; Dockerfile = "CustomerWebApi/Dockerfile" },
-    @{ Name = "authapi"; Dockerfile = "AuthApi/Dockerfile" },
-    @{ Name = "apigateway"; Dockerfile = "ApiGateWay/ApiGatWay/Dockerfile" }
+    @{ Name = "customerapi"; Dockerfile = "CustomerWebApi/Dockerfile"; Context = "$basePath" },
+    @{ Name = "authapi"; Dockerfile = "AuthApi/Dockerfile"; Context = "$basePath" },
+    @{ Name = "apigateway"; Dockerfile = "ApiGateWay/ApiGatWay/Dockerfile"; Context = "$basePath" }
 )
 
 # ===== BUILD & PUSH =====
@@ -15,7 +18,7 @@ foreach ($service in $services) {
     Write-Host "==============================" -ForegroundColor Cyan
     Write-Host "Building $imageName" -ForegroundColor Yellow
 
-    docker build -t $imageName -f $service.Dockerfile .
+    docker build -t $imageName -f "$basePath\$($service.Dockerfile)" $service.Context
 
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Build failed for $imageName" -ForegroundColor Red
