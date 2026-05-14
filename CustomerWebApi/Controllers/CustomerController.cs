@@ -1,6 +1,6 @@
 ﻿using System.Threading;
-using CustomerWebApi.Dto;
-using CustomerWebApi.Interface;
+using CustomerWebApi.Application.Dto;
+using CustomerWebApi.Application.Interface;
 using Messaging.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,6 @@ namespace CustomerWebApi.Controllers
         public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
-          
         }
 
         [Authorize]
@@ -32,6 +31,7 @@ namespace CustomerWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerById(int id, CancellationToken cancellationToken)
         {
+            Console.WriteLine("Customer Api called getting customer by id ");
             var customer = await _customerService.GetCustomerByIdAsync(id, cancellationToken);
             if (customer == null)
                 return NotFound(new { message = $"Customer with ID '{id}' not found." });
@@ -75,11 +75,12 @@ namespace CustomerWebApi.Controllers
             var publishedOrder = await _customerService.PublishOrderCreatedAsync(order, cancellationToken);
             return Ok(publishedOrder);
         }
-        [HttpPost("stremGrpcData")]
-        public async Task<IActionResult> StreamGrpcData([FromBody] OrderCreatedEvent order, CancellationToken cancellationToken)
-        {
-            var publishedOrder = await _customerService.StreamGrpcData(order, cancellationToken);
-            return Ok();
-        }   
+        //[HttpPost("stremGrpcData")]
+        //public async Task<IActionResult> StreamGrpcData([FromBody] OrderCreatedEvent order, CancellationToken cancellationToken)
+        //{
+        //    var publishedOrder = await _customerService.StreamGrpcData(order, cancellationToken);
+        //    return Ok();
+        //}  
+        
     }
 }

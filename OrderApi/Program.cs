@@ -1,8 +1,8 @@
-using OrderApi.Extensions;
-using OrderApi.Interface;
-using OrderApi.Services;
-using OrderApi.Services.GrpcServices.ServerSideStreaming;
-using ProductApi.Extensions;
+using OrderApi.Application.Interface;
+using OrderApi.Infrastructure.Extensions;
+using OrderApi.Infrastructure.Services;
+using OrderApi.Infrastructure.Services.GrpcServices;
+using OrderApi.Infrastructure.Services.GrpcServices.ServerSideStreaming;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +45,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGrpcService<OrderApi.Services.GrpcServices.PaymentGrpcService>();
+app.MapGrpcService<PaymentGrpcService>();
 app.MapGrpcService<GrpcStreamDemoService>();
 
 app.Run();

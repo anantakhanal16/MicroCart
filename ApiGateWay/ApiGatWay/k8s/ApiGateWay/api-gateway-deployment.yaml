@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api-gateway
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: api-gateway
@@ -14,12 +14,14 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: ark160/api-gateway:v1
+          image: ark160/apigateway:v6
           ports:
             - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
+            - name: ASPNETCORE_URLS
+              value: "http://+:80"
 
             # RabbitMQ (matches your docker-compose)
             - name: RABBITMQ_HOST

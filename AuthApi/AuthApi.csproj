@@ -8,15 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="k8s\authapi-service.yaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
   </ItemGroup>
 
+ <ItemGroup>
+	 <None Include="k8s\**\*.yaml" />
+ </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Entities\" />
   </ItemGroup>
 
 </Project>

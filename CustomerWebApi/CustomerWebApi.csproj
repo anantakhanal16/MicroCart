@@ -31,12 +31,15 @@
 	  <Protobuf Include="..\SharedContracts\Protos\*.proto" GrpcServices="Both" />
   </ItemGroup>
   <ItemGroup>
+	 <None Include="k8s\**\*.yaml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
     <ProjectReference Include="..\Messaging\Messaging.csproj" />
     <ProjectReference Include="..\SharedContracts\SharedContracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\Grpc\" />
+    <Folder Include="Infrastructure\Services\Grpc\" />
   </ItemGroup>
 
 </Project>

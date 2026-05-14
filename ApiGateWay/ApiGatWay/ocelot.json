@@ -1,48 +1,8 @@
-// Ocelot API Gateway Configuration
-// --------------------------------
-// Used to route incoming API requests (from client/frontend) to internal microservices.
-
-// 🔑 Property Explanations:
-// -------------------------
-// - UpstreamPathTemplate: Path the client calls, e.g. "/api/customer".
-// - UpstreamHttpMethod: HTTP methods allowed on this route (e.g., GET, POST, PUT).
-// - DownstreamPathTemplate: Actual path in the internal microservice.
-// - DownstreamScheme: Protocol used for downstream call ("http" or "https").
-// - DownstreamHostAndPorts:
-//     • Host: Hostname or Docker container name of the target service.
-//     • Port: Port where the microservice is listening.
-
-// ✅ Full Example Walkthrough:
-// ----------------------------
-// Route Block:
-// {
-//     "DownstreamPathTemplate": "/api/customer",
-//     "DownstreamScheme": "http",
-//     "DownstreamHostAndPorts": [
-//         {
-//             "Host": "customerwebapi",
-//             "Port": 80
-//         }
-//     ],
-//     "UpstreamPathTemplate": "/api/customer",
-//     "UpstreamHttpMethod": [ "GET", "POST" ]
-// }
-//
-// 🔄 Client Request (Upstream):
-// Client (e.g., frontend or Postman) sends: 
-//   → GET http://localhost:8085/api/customer
-//
-// 🔽 Ocelot forwards request (Downstream):
-//   → GET http://customerwebapi:80/api/customer
-// Where:
-// - "localhost:8085" is the API Gateway (Ocelot)
-// - "customerwebapi:80" is the internal microservice
-
 {
     "Routes": [
         {
-            "UpstreamPathTemplate": "/api/Account/{everything}",
-            "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
+            "UpstreamPathTemplate": "/api/account/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -50,10 +10,12 @@
                     "Port": 80
                 }
             ],
-            "DownstreamPathTemplate": "/api/Account/{everything}"
+            "DownstreamPathTemplate": "/api/account/{everything}"
         },
+
         {
-            "DownstreamPathTemplate": "/api/customer",
+            "UpstreamPathTemplate": "/api/customer/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -61,35 +23,12 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/customer",
-            "UpstreamHttpMethod": [ "GET", "POST" ]
+            "DownstreamPathTemplate": "/api/customer/{everything}"
         },
+
         {
-            "DownstreamPathTemplate": "/api/customer/{id}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "customerwebapi",
-                    "Port": 80
-                }
-            ],
-            "UpstreamPathTemplate": "/api/customer/{id}",
-            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/customer/create-order",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "customerwebapi",
-                    "Port": 80
-                }
-            ],
-            "UpstreamPathTemplate": "/api/customer/create-order",
-            "UpstreamHttpMethod": [ "POST" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/products",
+            "UpstreamPathTemplate": "/api/products/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -97,23 +36,12 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/products",
-            "UpstreamHttpMethod": [ "GET", "POST" ]
+            "DownstreamPathTemplate": "/api/products/{everything}"
         },
+
         {
-            "DownstreamPathTemplate": "/api/products/{id}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "productapi",
-                    "Port": 80
-                }
-            ],
-            "UpstreamPathTemplate": "/api/products/{id}",
-            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/order",
+            "UpstreamPathTemplate": "/api/order/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -121,36 +49,11 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/api/order",
-            "UpstreamHttpMethod": [ "GET", "POST" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/order/{id}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "orderapi",
-                    "Port": 80
-                }
-            ],
-            "UpstreamPathTemplate": "/api/order/{id}",
-            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
-        },
-        {
-            "DownstreamPathTemplate": "/PaymentGrpc/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "paymentgrpcapi",
-                    "Port": 5001
-                }
-            ],
-            "UpstreamPathTemplate": "/api/paymentgrpc/{everything}",
-            "UpstreamHttpMethod": [ "POST" ],
-            "Grpc": true
+            "DownstreamPathTemplate": "/api/order/{everything}"
         }
     ],
+
     "GlobalConfiguration": {
-        "BaseUrl": "http://localhost:8085"
+        "BaseUrl": "http://api.local"
     }
 }

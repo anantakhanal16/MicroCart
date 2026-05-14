@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using OrderApi.Dto;
-using OrderApi.Dtos;
-using OrderApi.Interface;
-using OrderApi.Model;
-using OrderApi.MongoDbConfigurations;
+using OrderApi.Application.Dto;
+using OrderApi.Application.Interface;
+
 
 
 namespace OrderApi.Controllers

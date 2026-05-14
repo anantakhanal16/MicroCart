@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: customerwebapi  # This matches Ocelot's expected name
+spec:
+  selector:
+    app: customerwebapi  # Selects your existing pods
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP  # No nodePort - ClusterIP only

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customerwebapi
+  labels:
+    app: customerwebapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customerwebapi
+  template:
+    metadata:
+      labels:
+        app: customerwebapi
+    spec:
+      containers:
+        - name: customerwebapi
+          image: ark160/customerapi:v6
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: RABBITMQ_USER
+              value: "guest"
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
+            - name: RABBITMQ_EXCHANGE
+              value: "order.exchange"
+            - name: RABBITMQ_ROUTINGKEY
+              value: "order.created"
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=192.168.1.65,1433;Database=MyAppDb;User Id=sa;Password=Abcde14256#;TrustServerCertificate=True;"
